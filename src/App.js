@@ -9,6 +9,7 @@ export default function App() {
 
   async function handleAddShips(){
     if (shipList.length < result.count){
+      console.log('loading more ships...');
     const nextPageResult = await getNextPage(result);
     console.log(nextPageResult);
     setResult(nextPageResult);
@@ -23,6 +24,7 @@ export default function App() {
   useEffect(() => {
     (async () => {
       try {
+        console.log('loading ships...');
         const result = await getAllStarships();
         const ships = result.results
         console.log(result);
@@ -36,8 +38,8 @@ export default function App() {
 
   return (
     <div className="app">
-    {shipList.map((ship) => (
-      <StarShipCard name={ship.name} cost_in_credits={ship.cost_in_credits}/>
+    {shipList.map((ship, index) => (
+      <StarShipCard key={index} name={ship.name} cost_in_credits={ship.cost_in_credits}/>
       ))}
       <button onClick={handleAddShips}>View More</button>
     </div>
